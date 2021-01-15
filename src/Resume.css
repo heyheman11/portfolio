@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+}
+
+.content {
+  margin: 0 auto;
+  padding: 10px 15px;
+  width: 21cm;
+  height: 29.7cm;
+  background-color: white;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 15px;
+}
+
+.heading {
+  width: 100%;
+  border-bottom: 3px solid blue;
+}
+
+.heading > h2 {
+  color: blue;
+}
+
+@media print {
+  @page {
+    size: 21cm 29.7cm;
+  }
+  .content {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0 auto;
+    /* padding: 10px 15px; */
+  }
+}
