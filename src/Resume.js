@@ -1,43 +1,40 @@
 import "./Resume.css";
+import resumeData from "./resume-data.json";
 
 function Heading({ title }) {
   return (
-    <div class="heading">
+    <div className="heading">
       <h2>{title}</h2>
     </div>
   );
 }
 
 function Resume() {
+  console.log(resumeData);
   return (
-    <div class="content">
-      <div class="header">
-        <h1>Daniel Zambetto</h1>
-        <div class="header-socials">
-          <span>Email: daniel.zambetto@gmail.com</span>
+    <div className="content">
+      <div className="header">
+        <h1>{resumeData.heading.name}</h1>
+        <div className="header-socials">
+          <span>{`Email: ${resumeData.heading.contact.email}`}</span>
           <span>
             linkedIn:
-            <a href="https://www.linkedin.com/in/daniel-zambetto-90285ab5/">
-              https://www.linkedin.com/in/daniel-zambetto-90285ab5/
+            <a href={resumeData.heading.contact.linkedIn}>
+              {resumeData.heading.contact.linkedIn}
             </a>
           </span>
-          <span>Phone: +61 437 908 774</span>
+          <span>{`Phone: ${resumeData.heading.contact.mobile}`}</span>
         </div>
       </div>
-      <div class="body">
-        <div class="column">
-          <div>
-          <Heading title="ABOUT ME"/>
-            <p>
-              Hi there, I'm a software developer located in Melbourn, Australia!
-            </p>
-          </div>
-          <Heading title="EXPERIENCE"/>
-        </div>
-        <div class="column">
-          <Heading title="EDUCATION"/>
-          <Heading title="HIGHTLIGHTS"/>
-        </div>
+      <div className="body">
+        {resumeData.body.map((section, index) => {
+          return (
+            <div>
+              <Heading title={section.title} />
+              <p>{section.description}</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
