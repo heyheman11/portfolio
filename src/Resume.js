@@ -9,6 +9,39 @@ function Heading({ title }) {
   );
 }
 
+function Section({ section }) {
+  return (
+    <div>
+      <Heading title={section.title} />
+      <p>{section.description}</p>
+    </div>
+  );
+}
+
+function ExperienceSection({ section }) {
+  const renderExperiences = () => {
+    return section.nodes.map((item, key) => {
+      return (
+        <div className="experience-node">
+          <div className="circle"></div>
+          <div>
+            <p>{item.first}</p>
+            <p>{item.subtitle}</p>
+            <p>{item.description}</p>
+          </div>
+        </div>
+      );
+    });
+  };
+
+  return (
+    <div>
+      <Heading title={section.title} />
+      {renderExperiences()}
+    </div>
+  );
+}
+
 function Resume() {
   console.log(resumeData);
   return (
@@ -28,12 +61,11 @@ function Resume() {
       </div>
       <div className="body">
         {resumeData.body.map((section, index) => {
-          return (
-            <div>
-              <Heading title={section.title} />
-              <p>{section.description}</p>
-            </div>
-          );
+          console.log(section);
+          if (section?.nodes) {
+            return <ExperienceSection section={section} key={index} />;
+          }
+          return <Section section={section} key={index} />;
         })}
       </div>
     </div>

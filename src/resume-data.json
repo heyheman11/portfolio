@@ -14,15 +14,35 @@
     },
     {
       "title": "EXPERIENCE",
-      "description": "Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!"
+      "nodes": [
+        {
+          "first": "NAB",
+          "second": "Full stack developer",
+          "subtitle": "Jan 2020 - Current",
+          "description": "NAB-X microfrontend pattern"
+        },
+        {
+          "first": "NAB",
+          "second": "Graduate",
+          "subtitle": "Oct 2019 - Jan 2020",
+          "description": "Content Management AEM"
+        },
+        {
+          "first": "NAB (JBWere)",
+          "second": "Graduate",
+          "subtitle": "Feb 2020 - Oct 2020",
+          "description": "JBWere team"
+        }
+        
+      ]
     },
     {
       "title": "EDUCATION",
-      "description": "Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!"
+      "description": ""
     },
     {
       "title": "HIGHLIGHTS",
-      "description": "Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!Hi there, I'm a software developer located in Melbourne, Australia!"
+      "description": ""
     }
   ]
 }
