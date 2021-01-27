@@ -1,0 +1,18 @@
+.nav {
+  position: absolute;
+  padding: 20px 10px;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.nav .currently-selected {
+  font-weight: 600;
+}
