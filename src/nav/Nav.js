@@ -7,34 +7,19 @@ function Nav({ selected, setSelected, routes }) {
     }
   };
 
-  return (
-    <div className="nav">
-      <p>
-        <button
-          className={getSelected("about")}
-          onClick={() => setSelected("about")}
-        >
-          About
-        </button>
-      </p>
-      <p>
-        <button
-          className={getSelected("projects")}
-          onClick={() => setSelected("projects")}
-        >
-          Projects
-        </button>
-      </p>
-      <p>
-        <button
-          className={getSelected("resume")}
-          onClick={() => setSelected("resume")}
-        >
-          Resume
-        </button>
-      </p>
-    </div>
-  );
+  const getButtons = () => {
+    return routes.map((item, index) => (
+      <button
+        key={index}
+        className={getSelected(item)}
+        onClick={() => setSelected(item)}
+      >
+        {item}
+      </button>
+    ));
+  };
+
+  return <div className="nav">{getButtons()}</div>;
 }
 
 export { Nav };

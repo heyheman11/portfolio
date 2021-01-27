@@ -59,7 +59,7 @@ function Resume() {
           <span>{`Phone: ${resumeData.heading.contact.mobile}`}</span>
         </div>
       </div>
-      <div className="body">
+      <div className="resume-body">
         {resumeData.body.map((section, index) => {
           console.log(section);
           if (section?.nodes) {
