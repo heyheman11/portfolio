@@ -1,3 +1,5 @@
 .page {
   height: 100vh;
+  background: red;
+  background: linear-gradient(to right, #536976, #292e49);
 }

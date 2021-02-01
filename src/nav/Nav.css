@@ -1,26 +1,36 @@
 .nav {
   position: absolute;
   padding: 20px 10px;
-  left: 10px;
+  left: 40px;
   top: 0;
   bottom: 0;
   width: 100px;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
-.nav > button {
+.nav-button--outer {
   margin: 0 0 20px 0;
+  border: 1px solid green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(10px) translateY(10px);
 }
 
-.nav > button:last-child {
+.nav-button--outer > button {
+  background: none;
+  border: 1px solid transparent;
+  padding: 10px;
+  font: inherit;
+}
+
+.nav-button--outer:last-child {
   margin: 0;
 }
 
 .nav .currently-selected {
+  border: 1px solid red;
   font-weight: 600;
 }
