@@ -1,5 +1,28 @@
+import { useRef, useState, useEffect } from "react";
 import "./Resume.css";
 import resumeData from "./resume-data.json";
+
+const useHeight = (ref) => {
+  const [height, setHeight] = useState(0);
+  console.log("HEIGHT", height);
+
+  // console.log("HEIGHT ", ref?.current?.offsetWidth);
+  useEffect(() => {
+    const copiedRef = ref;
+    const resize = new ResizeObserver((node) => {
+      setHeight(node[0]?.contentRect?.height);
+    });
+    if (copiedRef && "current" in copiedRef && copiedRef.current !== null) {
+      resize.observe(copiedRef.current);
+    }
+    return () => {
+      if (copiedRef && "current" in copiedRef && copiedRef.current !== null) {
+        resize.unobserve(copiedRef?.current);
+      }
+    };
+  }, []);
+  return height;
+};
 
 function Heading({ title }) {
   return (
@@ -18,19 +41,29 @@ function Section({ section }) {
   );
 }
 
+function ExperienceNode({ item }) {
+  return (
+    <div className="experience-node">
+      <div className="circle-container">
+        <div className="circle"></div>
+      </div>
+      <div className="workplace">
+        <h3>{item.role}</h3>
+        <p>
+          {item.company}
+          {" / "}
+          <span className="date">{item.date}</span>
+        </p>
+        <p>{item.description}</p>
+      </div>
+    </div>
+  );
+}
+
 function ExperienceSection({ section }) {
   const renderExperiences = () => {
-    return section.nodes.map((item, key) => {
-      return (
-        <div className="experience-node">
-          <div className="circle"></div>
-          <div>
-            <p>{item.first}</p>
-            <p>{item.subtitle}</p>
-            <p>{item.description}</p>
-          </div>
-        </div>
-      );
+    return section.nodes.map((item, index) => {
+      return <ExperienceNode key={index} item={item} />;
     });
   };
 
@@ -43,25 +76,29 @@ function ExperienceSection({ section }) {
 }
 
 function Resume() {
-  console.log(resumeData);
   return (
     <div className="content">
       <div className="header">
         <h1>{resumeData.heading.name}</h1>
         <div className="header-socials">
-          <span>{`Email: ${resumeData.heading.contact.email}`}</span>
-          <span>
-            linkedIn:
+          <p>
+            <span className="label">Email:</span>{" "}
+            {resumeData.heading.contact.email}
+          </p>
+          <p>
+            <span className="label">linkedIn: </span>
             <a href={resumeData.heading.contact.linkedIn}>
               {resumeData.heading.contact.linkedIn}
             </a>
-          </span>
-          <span>{`Phone: ${resumeData.heading.contact.mobile}`}</span>
+          </p>
+          <p>
+            <span className="label">Phone:</span>{" "}
+            {resumeData.heading.contact.mobile}
+          </p>
         </div>
       </div>
       <div className="resume-body">
         {resumeData.body.map((section, index) => {
-          console.log(section);
           if (section?.nodes) {
             return <ExperienceSection section={section} key={index} />;
           }

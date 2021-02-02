@@ -16,24 +16,23 @@
       "title": "EXPERIENCE",
       "nodes": [
         {
-          "first": "NAB",
-          "second": "Full stack developer",
-          "subtitle": "Jan 2020 - Current",
-          "description": "NAB-X microfrontend pattern"
+          "company": "NAB",
+          "role": "Full stack developer",
+          "date": "Jan 2020 - Current",
+          "description": ""
         },
         {
-          "first": "NAB",
-          "second": "Graduate",
-          "subtitle": "Oct 2019 - Jan 2020",
-          "description": "Content Management AEM"
+          "company": "NAB",
+          "role": "Graduate",
+          "date": "Oct 2019 - Jan 2020",
+          "description": "Currently working within Content Management. Being involved thus far with AEM 6.4 component uplift, increasing  test coverage and general BAU work. Exposure with enhancing and managing AEM, and writing components using vanilla JavaScript and Java."
         },
         {
-          "first": "NAB (JBWere)",
-          "second": "Graduate",
-          "subtitle": "Feb 2020 - Oct 2020",
-          "description": "JBWere team"
+          "company": "NAB (JBWere)",
+          "role": "Graduate",
+          "date": "Feb 2019 - Oct 2019",
+          "description": "Full stack developer role which saw me contribute heavily to the replatform of JBWere external portal, extensive use of React and libraries such as RxJS and Redux. Strong focus on creating reusable components and  extremely high test coverage (> 90%) with Enzyme and Jest. Responsible for the creation of an internal portal, another React project designed for staff. I was entrusted with creating the project structure, establishing tooling needed for development and testing. Leveraging webpack to create web efficient  bundles, Sass to style components. For testing I used Jest as the runner and Enzyme to render components for validation."
         }
-        
       ]
     },
     {
