@@ -5,6 +5,9 @@
   align-items: center;
   --rectangle-width: 400px;
   --rectangle-height: 200px;
+  --rotate-x: 0deg;
+  --rotate-y: 0deg;
+  --rotate-z: 0deg;
 }
 
 .area {
@@ -16,12 +19,12 @@
 
 .cube {
   transform-style: preserve-3d;
-  transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateX(0px)
-    translateY(-100px) translateZ(0px);
+  transform: rotateX(var(--rotate-x)) rotateY(var(--rotate-y))
+    rotateZ(var(--rotate-z)) translateX(0px) translateY(-100px) translateZ(0px);
   /* animation: cubeSpin 1s linear infinite 2s; */
   animation-name: cubeSpin;
   animation-duration: 2s;
-  animation-iteration-count: infinite;
+  /* animation-iteration-count: infinite; */
   animation-delay: 1s;
 }
 
@@ -39,6 +42,15 @@
     transform: rotateX(1440deg) translateY(-100px);
   }
 }
+
+/* @keyframes cubeSpin {
+  0% {
+    transform: rotateX(0deg) translateY(-100px);
+  }
+  100% {
+    transform: rotateX(1440deg) translateY(-100px);
+  }
+} */
 
 .cube-face-front {
   position: absolute;
