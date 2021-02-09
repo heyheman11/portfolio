@@ -37,7 +37,9 @@ p {
   padding: 10px 15px;
   display: flex;
   justify-content: space-evenly;
+  overflow-wrap: anywhere;
 }
+
 .header-socials > p {
   display: inline-block;
 }
@@ -81,9 +83,8 @@ p {
 }
 
 .resume-body {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 15px;
+  column-count: 2;
+  column-gap: 4em;
 }
 
 .heading {

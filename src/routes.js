@@ -1,6 +1,6 @@
-import { About } from "./pages/About/About";
+import { About } from "./pages/about/About";
 // import { Projects } from "./pages/Projects/Projects";
-import { Resume } from "./pages/Resume/Resume";
+import { Resume } from "./pages/resume/Resume";
 
 const routes = [
   { name: "About", component: About },

@@ -1,28 +1,5 @@
-import { useRef, useState, useEffect } from "react";
 import "./Resume.css";
 import resumeData from "./resume-data.json";
-
-const useHeight = (ref) => {
-  const [height, setHeight] = useState(0);
-  console.log("HEIGHT", height);
-
-  // console.log("HEIGHT ", ref?.current?.offsetWidth);
-  useEffect(() => {
-    const copiedRef = ref;
-    const resize = new ResizeObserver((node) => {
-      setHeight(node[0]?.contentRect?.height);
-    });
-    if (copiedRef && "current" in copiedRef && copiedRef.current !== null) {
-      resize.observe(copiedRef.current);
-    }
-    return () => {
-      if (copiedRef && "current" in copiedRef && copiedRef.current !== null) {
-        resize.unobserve(copiedRef?.current);
-      }
-    };
-  }, []);
-  return height;
-};
 
 function Heading({ title }) {
   return (

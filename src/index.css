@@ -2,7 +2,6 @@
 body {
   margin: 0;
   font-family: "Noto Sans KR", sans-serif;
-  
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -14,4 +13,9 @@ code {
 
 * {
   box-sizing: border-box;
+}
+
+:root {
+  --bg-colour-1: #536976;
+  --bg-colour-2: #292e49;
 }

@@ -1,5 +1,6 @@
 .page {
   height: 100vh;
   background: red;
-  background: linear-gradient(to right, #536976, #292e49);
+  background: linear-gradient(to right, var(--bg-colour-1, #536976), var(--bg-colour-2, #292e49));
+  transition: all 2s;
 }

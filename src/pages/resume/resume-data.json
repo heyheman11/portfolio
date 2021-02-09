@@ -10,7 +10,7 @@
   "body": [
     {
       "title": "ABOUT ME",
-      "description": "Hi there, I'm a software developer located in Melbourne, Australia! Hi there, I'm a software developer located in Melbourne, Australia! Hi there, I'm a software developer located in Melbourne, Australia!"
+      "description": "I'm a full stack developer, who is passionate about making software that just works. I have over 2 years industry experience in a number of technologies, ranging from DevOps (Jenkins) to front end development (React). I love making websites that are accessible, with an emphasis on high quality."
     },
     {
       "title": "EXPERIENCE",
@@ -23,21 +23,21 @@
         },
         {
           "company": "NAB",
-          "role": "Graduate",
+          "role": "Graduate - AEM",
           "date": "Oct 2019 - Jan 2020",
-          "description": "Currently working within Content Management. Being involved thus far with AEM 6.4 component uplift, increasing  test coverage and general BAU work. Exposure with enhancing and managing AEM, and writing components using vanilla JavaScript and Java."
+          "description": "Second rotation within a team that supports the enterprise AEM service. I was involved with helping move AEM 6.0 components to 6.4 component. Alongside general enahancements such as reviewing workflow processes, helping in manual testing as well creating an internal webscraping tool using pupeteer to audit nab.com.au for irregularities (such as non-relative links)."
         },
         {
           "company": "NAB (JBWere)",
           "role": "Graduate",
           "date": "Feb 2019 - Oct 2019",
-          "description": "Full stack developer role which saw me contribute heavily to the replatform of JBWere external portal, extensive use of React and libraries such as RxJS and Redux. Strong focus on creating reusable components and  extremely high test coverage (> 90%) with Enzyme and Jest. Responsible for the creation of an internal portal, another React project designed for staff. I was entrusted with creating the project structure, establishing tooling needed for development and testing. Leveraging webpack to create web efficient  bundles, Sass to style components. For testing I used Jest as the runner and Enzyme to render components for validation."
+          "description": "First graduate rotation in a BAU team who relied on on-prem infrastructure and old .NET stack. During this time I solidified my understanding on React and building up front end skills within the team. I created the beginnings of a back office portal, along with supporting dashboards that hooked into overnight processes. I had a number of contributions working on a client portal, a project that was to replace the old self service banking application for JBWere clients."
         }
       ]
     },
     {
       "title": "EDUCATION",
-      "description": ""
+      "description": "Monash Univeristy Computer Science"
     },
     {
       "title": "HIGHLIGHTS",
