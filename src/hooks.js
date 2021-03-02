@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { debounce, throttle } from "lodash";
 
 function useWindowDimensions() {
   const [width, setWidth] = useState(0);
@@ -26,12 +27,17 @@ const useDimensions = (ref) => {
   const [height, setHeight] = useState(0);
   const [width, setWidth] = useState(0);
 
-  useEffect(() => {
-    const copiedRef = ref;
-    const resize = new ResizeObserver((node) => {
+  const debouncedFunction = useCallback(
+    debounce((node) => {
       setHeight(node[0]?.contentRect?.height);
       setWidth(node[0]?.contentRect?.width);
-    });
+    }, 350),
+    []
+  );
+
+  useEffect(() => {
+    const copiedRef = ref;
+    const resize = new ResizeObserver(debouncedFunction);
     if (copiedRef && "current" in copiedRef && copiedRef.current !== null) {
       resize.observe(copiedRef.current);
     }
@@ -40,26 +46,28 @@ const useDimensions = (ref) => {
         resize.unobserve(copiedRef?.current);
       }
     };
-  }, [ref]);
+  }, [ref, debouncedFunction]);
   return [width, height];
 };
 
 const useMouse = (ref) => {
   const [coord, setCoord] = useState({ x: 0, y: 0 });
 
+  const mouseMoveCallback = useCallback((event) => {
+    setCoord({ x: event.clientX, y: event.clientY });
+  }, []);
+
   useEffect(() => {
     const copiedRef = ref;
     if (copiedRef && "current" in copiedRef && copiedRef.current !== null) {
-      copiedRef.current.addEventListener("mousemove", (event) => {
-        setCoord({ x: event.clientX, y: event.clientY });
-      });
+      copiedRef.current.addEventListener("mousemove", mouseMoveCallback);
     }
     return () => {
       if (copiedRef && "current" in copiedRef && copiedRef.current !== null) {
-        // copiedRef.current.addEventListener;
+        copiedRef.current.removeEventListener("mousemove", mouseMoveCallback);
       }
     };
-  }, [ref]);
+  }, [ref, mouseMoveCallback]);
   return coord;
 };
 

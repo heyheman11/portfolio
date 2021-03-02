@@ -9,6 +9,8 @@ export function About() {
   const [width, height] = useDimensions(pageRef);
   const { x, y } = useMouse(pageRef);
 
+  console.log("wdith", width);
+
   useEffect(() => {
     const xCoo = (x / (width / 2)) * ROTATE_CONSTANT - ROTATE_CONSTANT;
     const yCoo = (y / (height / 2)) * ROTATE_CONSTANT - ROTATE_CONSTANT;

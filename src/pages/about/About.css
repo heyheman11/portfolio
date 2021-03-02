@@ -21,6 +21,7 @@
     rotateZ(var(--rotate-z)) translateX(0px) translateY(-100px) translateZ(0px);
   width: var(--rectangle-width);
   height: var(--rectangle-height);
+  transition: all 0.1s;
 }
 
 .orbit {
