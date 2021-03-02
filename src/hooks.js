@@ -1,36 +1,44 @@
 import { useEffect, useState, useCallback } from "react";
-import { debounce, throttle } from "lodash";
+import { debounce } from "lodash";
 
+/**
+ * Captures height and width of window.
+ *
+ * @returns [width, height]
+ */
 function useWindowDimensions() {
-  const [width, setWidth] = useState(0);
-  const [height, setHeight] = useState(0);
+  const [dimensions, setDimensions] = useState({ height: 0, width: 0 });
   useEffect(() => {
-    setWidth(window.innerWidth);
-    setHeight(window.innerHeight);
+    setDimensions({ width: window.innerWidth, height: window.innerHeight });
+  }, []);
+
+  const captureWindow = useCallback(() => {
+    setDimensions({ width: window.innerWidth, height: window.innerHeight });
   }, []);
 
   useEffect(() => {
-    window.addEventListener("resize", () => {
-      setWidth(window.innerWidth);
-      setHeight(window.innerHeight);
-    });
-    return () =>
-      window.removeEventListener("resize", () => {
-        setWidth(window.innerWidth);
-        setHeight(window.innerHeight);
-      });
-  }, []);
-  return [width, height];
+    window.addEventListener("resize", () => captureWindow);
+    return () => window.removeEventListener("resize", () => captureWindow);
+  }, [captureWindow]);
+  return [dimensions.width, dimensions.height];
 }
 
+/**
+ * Captures height and width of ref. Uses resizeObserver
+ * to capture changes in objects size, utilises lodash
+ * debounce to reduce number of returns
+ *
+ * @returns [width, height]
+ */
 const useDimensions = (ref) => {
-  const [height, setHeight] = useState(0);
-  const [width, setWidth] = useState(0);
+  const [dimensions, setDimensions] = useState({ height: 0, width: 0 });
 
   const debouncedFunction = useCallback(
     debounce((node) => {
-      setHeight(node[0]?.contentRect?.height);
-      setWidth(node[0]?.contentRect?.width);
+      setDimensions({
+        height: node[0]?.contentRect?.height,
+        width: node[0]?.contentRect?.width,
+      });
     }, 350),
     []
   );
@@ -47,9 +55,14 @@ const useDimensions = (ref) => {
       }
     };
   }, [ref, debouncedFunction]);
-  return [width, height];
+  return [dimensions.width, dimensions.height];
 };
 
+/**
+ * Captures mouse corrdinates of a given element
+ *
+ * @returns object of x and y coordinates
+ */
 const useMouse = (ref) => {
   const [coord, setCoord] = useState({ x: 0, y: 0 });
 

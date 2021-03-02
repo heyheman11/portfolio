@@ -37,7 +37,8 @@
 }
 
 .orbit.saturn {
-  transform: rotateX(40deg) translateZ(150px) translateX(-100px);
+  transform: rotateX(40deg) translateY(-100px) translateZ(150px)
+    translateX(-100px);
 }
 
 .inner-orbit {
