@@ -33,6 +33,7 @@ function useWindowDimensions() {
 const useDimensions = (ref) => {
   const [dimensions, setDimensions] = useState({ height: 0, width: 0 });
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedFunction = useCallback(
     debounce((node) => {
       setDimensions({
