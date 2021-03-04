@@ -20,11 +20,11 @@ jobs:
         run: yarn
 
       - name: Build code
-        run: yarn sb:build
+        run: yarn build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: dist
+          FOLDER: build
