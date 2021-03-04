@@ -10,27 +10,44 @@
   flex-direction: column;
 }
 
-.nav-button--outer {
-  margin: 0 0 20px 0;
-  border: 1px solid green;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: translateX(10px) translateY(10px);
-}
-
-.nav-button--outer > button {
+.nav-button {
+  position: relative;
   background: none;
-  border: 1px solid transparent;
+  border: 2px solid gray;
   padding: 10px;
+  margin: 0 0 10px 0;
   font: inherit;
+  overflow: hidden;
 }
 
-.nav-button--outer:last-child {
+.nav-button:hover {
+  cursor: pointer;
+}
+
+.nav-button:hover::before {
+  content: "";
+  position: absolute;
+  background-color: rgba(79, 130, 224, 0.418);
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: fill 0.3s;
+}
+
+@keyframes fill {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+.nav-button:last-child {
   margin: 0;
 }
 
 .nav .currently-selected {
-  border: 1px solid red;
   font-weight: 600;
 }

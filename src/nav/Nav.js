@@ -9,11 +9,13 @@ function Nav({ selected, setSelected, routes }) {
 
   const getButtons = () => {
     return routes.map((item, index) => (
-      <div key={index} className="nav-button--outer">
-        <button className={getSelected(item)} onClick={() => setSelected(item)}>
-          {item}
-        </button>
-      </div>
+      <button
+        key={index}
+        className={`nav-button ${getSelected(item)}`}
+        onClick={() => setSelected(item)}
+      >
+        {item}
+      </button>
     ));
   };
 

@@ -9,8 +9,6 @@ export function About() {
   const [width, height] = useDimensions(pageRef);
   const { x, y } = useMouse(pageRef);
 
-  console.log("wdith", width);
-
   useEffect(() => {
     const xCoo = (x / (width / 2)) * ROTATE_CONSTANT - ROTATE_CONSTANT;
     const yCoo = (y / (height / 2)) * ROTATE_CONSTANT - ROTATE_CONSTANT;
@@ -22,28 +20,32 @@ export function About() {
 
   return (
     <div className="about-page" ref={pageRef}>
-      <div className="area">
-        <div className={"cube"}>
-          <div className="orbit earth">
-            <div className="inner-orbit">
-              <div className="child">🌏</div>
+      {width > 0 ? (
+        <div className="area">
+          <div className="cube">
+            <div className="orbit earth">
+              <div className="inner-orbit">
+                <div className="child">🌏</div>
+              </div>
             </div>
-          </div>
-          <div className="orbit saturn">
-            <div className="inner-orbit">
-              <div className="child">🪐</div>
+            <div className="orbit saturn">
+              <div className="inner-orbit">
+                <div className="child">🪐</div>
+              </div>
             </div>
+            <div className="cube-face-front cube-face--front">
+              <h3>Daniel Zambetto</h3>
+            </div>
+            <div className="cube-face-front cube-face--back"></div>
+            <div className="cube-face-side cube-face--right"></div>
+            <div className="cube-face-side cube-face--left"></div>
+            <div className="cube-face-front cube-face--top"></div>
+            <div className="cube-face-front cube-face--bottom"></div>
           </div>
-          <div className="cube-face-front cube-face--front">
-            <h3>Daniel Zambetto</h3>
-          </div>
-          <div className="cube-face-front cube-face--back"></div>
-          <div className="cube-face-side cube-face--right"></div>
-          <div className="cube-face-side cube-face--left"></div>
-          <div className="cube-face-front cube-face--top"></div>
-          <div className="cube-face-front cube-face--bottom"></div>
         </div>
-      </div>
+      ) : (
+        "Loading..."
+      )}
     </div>
   );
 }

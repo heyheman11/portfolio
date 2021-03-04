@@ -10,16 +10,16 @@
   "body": [
     {
       "title": "ABOUT ME",
-      "description": "I'm a full stack developer, who is passionate about making software that just works. I have over 2 years industry experience in a number of technologies, ranging from DevOps (Jenkins) to front end development (React). I love making websites that are accessible, with an emphasis on high quality."
+      "description": "I'm a full stack developer, who is passionate about making software that just works. I have over 2 years industry experience in a number of technologies, ranging from DevOps (Jenkins) to front end development (React). I love making websites that are accessible, with an emphasis on high quality and great user experience."
     },
     {
       "title": "EXPERIENCE",
       "nodes": [
         {
-          "company": "NAB",
+          "company": "NAB (NAB-X)",
           "role": "Full stack developer",
           "date": "Jan 2020 - Current",
-          "description": ""
+          "description": "My current position is with NAB-X, a centeralised technology development team aimed at builiding micro-frontend tooling and experiences that are used across all of the digital space."
         },
         {
           "company": "NAB",
