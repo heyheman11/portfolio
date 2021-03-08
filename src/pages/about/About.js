@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { Cube } from "./Cube";
 import "./About.css";
 
@@ -13,11 +12,9 @@ import "./About.css";
               </div>
             </div> */
 
-export function About() {
-  const pageRef = useRef(null);
-
+export function About({ pageRef }) {
   return (
-    <div className="about-page" ref={pageRef}>
+    <div className="about-page">
       <Cube pageRef={pageRef} />
     </div>
   );

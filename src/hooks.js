@@ -12,14 +12,14 @@ function useWindowDimensions() {
     setDimensions({ width: window.innerWidth, height: window.innerHeight });
   }, []);
 
-  const captureWindow = useCallback(() => {
-    setDimensions({ width: window.innerWidth, height: window.innerHeight });
+  useEffect(() => {
+    const captureWindow = () => {
+      setDimensions({ width: window.innerWidth, height: window.innerHeight });
+    };
+    window.addEventListener("resize", captureWindow);
+    return () => window.removeEventListener("resize", captureWindow);
   }, []);
 
-  useEffect(() => {
-    window.addEventListener("resize", () => captureWindow);
-    return () => window.removeEventListener("resize", () => captureWindow);
-  }, [captureWindow]);
   return [dimensions.width, dimensions.height];
 }
 

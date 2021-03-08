@@ -1,5 +1,9 @@
 import "./Body.css";
 
-export function Body({ PageToRender }) {
-  return <div className="body"><PageToRender /></div>;
+export function Body({ PageToRender, pageRef }) {
+  return (
+    <div className="body">
+      <PageToRender pageRef={pageRef} />
+    </div>
+  );
 }
