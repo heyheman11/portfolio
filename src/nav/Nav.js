@@ -1,11 +1,21 @@
 import { useState, useRef, useEffect } from "react";
-import { useWindowDimensions } from "../hooks";
 import "./Nav.css";
+
+const RADIUS = 100;
+
+const getX = (i, length) => {
+  const angle = (i + 1 / (length + 2)) * 180 * (Math.PI / 180);
+  return Math.cos(angle) * RADIUS;
+};
+
+const getY = (i, length) => {
+  const angle = (i + 1 / (length + 2)) * 180 * (Math.PI / 180);
+  return Math.sin(angle) * RADIUS;
+};
 
 function Nav({ selected, setSelected, routes, pageRef }) {
   const [initial, setInitial] = useState({ x: 0, y: 0 });
   const [isDragOn, setIsDragOn] = useState(false);
-  const [height, width] = useWindowDimensions();
   const containerRef = useRef(null);
   const moveRef = useRef(null);
 
@@ -77,14 +87,17 @@ function Nav({ selected, setSelected, routes, pageRef }) {
     // of element is likely to change
   }, []);
 
+  const getNavItems = () => {
+    return ["Home", "Resume"].map((item, index) => (
+      <div style={{ position: 'absolute', right: getX(index, 2), top: getY(index, 2) }}>{item}</div>
+    ));
+  };
+
   return (
     <div className="nav" ref={containerRef}>
       <div className="nav-ball" ref={moveRef}></div>
       {isDragOn || true ? (
-        <div className="nav-options">
-          <div>Home</div>
-          <div>Resume</div>
-        </div>
+        <div className="nav-options">{getNavItems()}</div>
       ) : null}
     </div>
   );
