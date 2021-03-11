@@ -4,13 +4,19 @@ import "./Nav.css";
 const RADIUS = 100;
 
 const getX = (i, length) => {
-  const angle = (i + 1 / (length + 2)) * 180 * (Math.PI / 180);
-  return Math.cos(angle) * RADIUS;
+  const position = (i + 1) / (length + 1);
+  const angle = position * 180 + 270;
+  const radian = angle * (Math.PI / 180);
+  let answer = Math.cos(radian) * RADIUS;
+  return Math.ceil(answer);
 };
 
 const getY = (i, length) => {
-  const angle = (i + 1 / (length + 2)) * 180 * (Math.PI / 180);
-  return Math.sin(angle) * RADIUS;
+  const position = (i + 1) / (length + 1);
+  const angle = position * 180 + 270;
+  const radian = angle * (Math.PI / 180);
+  const answer = -Math.sin(radian) * RADIUS;
+  return Math.ceil(answer);
 };
 
 function Nav({ selected, setSelected, routes, pageRef }) {
@@ -89,16 +95,25 @@ function Nav({ selected, setSelected, routes, pageRef }) {
 
   const getNavItems = () => {
     return ["Home", "Resume"].map((item, index) => (
-      <div style={{ position: 'absolute', right: getX(index, 2), top: getY(index, 2) }}>{item}</div>
+      <div
+        key={index}
+        style={{
+          transform: `translate3d(${getX(index, 2)}px, ${getY(index, 2)}px, 0)`,
+        }}
+      >
+        {item}
+      </div>
     ));
   };
 
   return (
-    <div className="nav" ref={containerRef}>
+    <div className="nav-outer">
       <div className="nav-ball" ref={moveRef}></div>
-      {isDragOn || true ? (
-        <div className="nav-options">{getNavItems()}</div>
-      ) : null}
+      <div className="nav-inner" ref={containerRef}>
+        {isDragOn || true ? (
+          <div className="nav-options">{getNavItems()}</div>
+        ) : null}
+      </div>
     </div>
   );
 }
