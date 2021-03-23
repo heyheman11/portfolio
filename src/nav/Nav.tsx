@@ -1,28 +1,49 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useMouse } from "../hooks";
+import { getX, getY } from "./utils";
 import "./Nav.css";
+import { useInView } from "react-intersection-observer";
 
-const RADIUS = 100;
+function NavigationPip({
+  index,
+  title,
+  moveRef,
+}: {
+  index: number;
+  title: string;
+  moveRef: any;
+}) {
+  const pipRef = useRef<HTMLDivElement>(null);
+  // const { ref, inView, entry } = useInView({ root: moveRef?.current });
 
-const getX = (i: number, length: number) => {
-  const position = (i + 1) / (length + 1);
-  const angle = position * 180 + 270;
-  const radian = angle * (Math.PI / 180);
-  let answer = Math.cos(radian) * RADIUS;
-  return Math.ceil(answer);
-};
+  // console.log("inView", inView, "entry", entry);
 
-const getY = (i: number, length: number) => {
-  const position = (i + 1) / (length + 1);
-  const angle = position * 180 + 270;
-  const radian = angle * (Math.PI / 180);
-  const answer = Math.sin(radian) * RADIUS;
-  return Math.ceil(answer);
-};
+  // useEffect(() => {
+  //   if (pipRef && "current" in pipRef) {
+  //     console.log(pipRef.current?.getBoundingClientRect());
+  //   }
+  // }, []);
+
+  return (
+    <div
+      // ref={ref}
+      key={index}
+      style={{
+        transform: `translate3d(${getX(index, 2)}px, ${getY(index, 2)}px, 0)`,
+      }}
+    >
+      {title}
+    </div>
+  );
+}
 
 function Nav({ pageRef }: { pageRef: React.Ref<HTMLElement> }) {
   const [initial, setInitial] = useState({ x: 0, y: 0 });
   const [isDragOn, setIsDragOn] = useState(false);
+  const { x, y } = useMouse(pageRef);
   const moveRef = useRef<HTMLDivElement>(null);
+
+  // const
 
   useEffect(() => {
     const pageCopy = pageRef;
@@ -71,22 +92,16 @@ function Nav({ pageRef }: { pageRef: React.Ref<HTMLElement> }) {
       const { x, y } = moveRef.current?.getBoundingClientRect() as DOMRect;
       setInitial({ x, y });
     }
-    // Need to rerender when window changes as the initial position
-    // of element is likely to change
   }, []);
 
-  const getNavItems = () => {
-    return ["Home", "Resume"].map((item, index) => (
-      <div
-        key={index}
-        style={{
-          transform: `translate3d(${getX(index, 2)}px, ${getY(index, 2)}px, 0)`,
-        }}
-      >
-        {item}
-      </div>
-    ));
-  };
+  const getNavItems = useCallback(() => {
+    return (
+      <>
+        <NavigationPip title={"Home"} index={0} moveRef={moveRef} />
+        <NavigationPip title={"Home"} index={1} moveRef={moveRef} />
+      </>
+    );
+  }, []);
 
   return (
     <div className="nav-outer">
