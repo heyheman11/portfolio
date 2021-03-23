@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { debounce } from "lodash";
 
 /**
@@ -30,7 +30,7 @@ function useWindowDimensions() {
  *
  * @returns [width, height]
  */
-const useDimensions = (ref) => {
+const useDimensions = (ref: React.Ref<HTMLElement>) => {
   const [dimensions, setDimensions] = useState({ height: 0, width: 0 });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,7 +64,7 @@ const useDimensions = (ref) => {
  *
  * @returns object of x and y coordinates
  */
-const useMouse = (ref) => {
+const useMouse = (ref: React.Ref<HTMLElement>) => {
   const [coord, setCoord] = useState({ x: 0, y: 0 });
 
   const mouseMoveCallback = useCallback((event) => {

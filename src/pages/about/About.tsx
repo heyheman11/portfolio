@@ -1,5 +1,6 @@
 import { Cube } from "./Cube";
 import "./About.css";
+import React from "react";
 
 /* <div className="orbit earth">
               <div className="inner-orbit">
@@ -12,7 +13,7 @@ import "./About.css";
               </div>
             </div> */
 
-export function About({ pageRef }) {
+export function About({ pageRef }: { pageRef: React.Ref<HTMLElement> }) {
   return (
     <div className="about-page">
       <Cube pageRef={pageRef} />
