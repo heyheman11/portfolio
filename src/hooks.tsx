@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
+import { PartialDOMRect } from "./nav/types";
 import { debounce } from "lodash";
 
 /**
@@ -85,4 +86,28 @@ const useMouse = (ref: React.Ref<HTMLElement>) => {
   return coord;
 };
 
-export { useWindowDimensions, useDimensions, useMouse };
+function useBoundingRect(ref: React.Ref<HTMLElement>): PartialDOMRect {
+  const [coord, setCoord] = useState<PartialDOMRect>({
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+  });
+
+  useEffect(() => {
+    const copiedRef = ref;
+    if (copiedRef && "current" in copiedRef && copiedRef.current !== null) {
+      const {
+        x,
+        y,
+        height,
+        width,
+      } = copiedRef.current?.getBoundingClientRect() as DOMRect;
+      setCoord({ x, y, height, width });
+    }
+  }, [ref]);
+
+  return coord;
+}
+
+export { useWindowDimensions, useDimensions, useMouse, useBoundingRect };
