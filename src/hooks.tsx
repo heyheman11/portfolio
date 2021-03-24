@@ -1,4 +1,5 @@
-import { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { PartialDOMRect } from "./nav/types";
 import { debounce } from "lodash";
 
 /**
@@ -12,14 +13,14 @@ function useWindowDimensions() {
     setDimensions({ width: window.innerWidth, height: window.innerHeight });
   }, []);
 
-  const captureWindow = useCallback(() => {
-    setDimensions({ width: window.innerWidth, height: window.innerHeight });
+  useEffect(() => {
+    const captureWindow = () => {
+      setDimensions({ width: window.innerWidth, height: window.innerHeight });
+    };
+    window.addEventListener("resize", captureWindow);
+    return () => window.removeEventListener("resize", captureWindow);
   }, []);
 
-  useEffect(() => {
-    window.addEventListener("resize", () => captureWindow);
-    return () => window.removeEventListener("resize", () => captureWindow);
-  }, [captureWindow]);
   return [dimensions.width, dimensions.height];
 }
 
@@ -30,7 +31,7 @@ function useWindowDimensions() {
  *
  * @returns [width, height]
  */
-const useDimensions = (ref) => {
+const useDimensions = (ref: React.Ref<HTMLElement>) => {
   const [dimensions, setDimensions] = useState({ height: 0, width: 0 });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,7 +65,7 @@ const useDimensions = (ref) => {
  *
  * @returns object of x and y coordinates
  */
-const useMouse = (ref) => {
+const useMouse = (ref: React.Ref<HTMLElement>) => {
   const [coord, setCoord] = useState({ x: 0, y: 0 });
 
   const mouseMoveCallback = useCallback((event) => {
@@ -85,4 +86,28 @@ const useMouse = (ref) => {
   return coord;
 };
 
-export { useWindowDimensions, useDimensions, useMouse };
+function useBoundingRect(ref: React.Ref<HTMLElement>): PartialDOMRect {
+  const [coord, setCoord] = useState<PartialDOMRect>({
+    x: 0,
+    y: 0,
+    height: 0,
+    width: 0,
+  });
+
+  useEffect(() => {
+    const copiedRef = ref;
+    if (copiedRef && "current" in copiedRef && copiedRef.current !== null) {
+      const {
+        x,
+        y,
+        height,
+        width,
+      } = copiedRef.current?.getBoundingClientRect() as DOMRect;
+      setCoord({ x, y, height, width });
+    }
+  }, [ref]);
+
+  return coord;
+}
+
+export { useWindowDimensions, useDimensions, useMouse, useBoundingRect };

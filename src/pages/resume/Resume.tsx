@@ -1,7 +1,7 @@
 import "./Resume.css";
 import resumeData from "./resume-data.json";
 
-function Heading({ title }) {
+function Heading({ title }: any) {
   return (
     <div className="heading">
       <h2>{title}</h2>
@@ -9,7 +9,7 @@ function Heading({ title }) {
   );
 }
 
-function Section({ section }) {
+function Section({ section }: any) {
   return (
     <div>
       <Heading title={section.title} />
@@ -18,7 +18,7 @@ function Section({ section }) {
   );
 }
 
-function ExperienceNode({ item }) {
+function ExperienceNode({ item }: any) {
   return (
     <div className="experience-node">
       <div className="circle-container">
@@ -37,9 +37,9 @@ function ExperienceNode({ item }) {
   );
 }
 
-function ExperienceSection({ section }) {
+function ExperienceSection({ section }: any) {
   const renderExperiences = () => {
-    return section.nodes.map((item, index) => {
+    return section.nodes.map((item: any, index: number) => {
       return <ExperienceNode key={index} item={item} />;
     });
   };

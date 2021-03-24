@@ -4,7 +4,7 @@ import "./Cube.css";
 
 const ROTATE_CONSTANT = 10;
 
-export function Cube({ pageRef }) {
+export function Cube({ pageRef }: any) {
   const [width, height] = useDimensions(pageRef);
   const { x, y } = useMouse(pageRef);
 
