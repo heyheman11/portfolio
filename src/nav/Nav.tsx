@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
-import { getX, getY } from "./utils";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { getX, getY, isCollision, setActive } from "./utils";
 import { NAV_BALL_RADIUS } from "./constants";
 import { useBoundingRect } from "../hooks";
 import "./Nav.css";
@@ -17,36 +17,41 @@ function NavigationPip({
 }) {
   const pipRef = useRef<HTMLDivElement>(null);
   const pipCoordinates = useBoundingRect(pipRef);
+  const [isHover, setIsHover] = useState(false);
+
+  const navBall = useMemo(
+    () => ({
+      ...navBallCoordinates,
+      height: NAV_BALL_RADIUS,
+      width: NAV_BALL_RADIUS,
+    }),
+    [navBallCoordinates]
+  );
 
   useEffect(() => {
-    /*
-     * Logic taken from https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
-     */
-    if (
-      navBallCoordinates.x < pipCoordinates.x + pipCoordinates.width &&
-      navBallCoordinates.x + NAV_BALL_RADIUS > pipCoordinates.x &&
-      navBallCoordinates.y < pipCoordinates.y + pipCoordinates.height &&
-      navBallCoordinates.y + NAV_BALL_RADIUS > pipCoordinates.y
-    ) {
-      handleCollision(title);
+    if (isCollision(navBall, pipCoordinates)) {
+      setIsHover(true);
+      const timeout = setTimeout(() => {
+        if (isCollision(navBall, pipCoordinates)) {
+          handleCollision(title);
+          setIsHover(false);
+        }
+      }, 500);
+      return () => {
+        setIsHover(false);
+        clearTimeout(timeout);
+      };
     }
-  }, [
-    navBallCoordinates.x,
-    navBallCoordinates.y,
-    pipCoordinates.x,
-    pipCoordinates.y,
-    pipCoordinates.width,
-    pipCoordinates.height,
-    handleCollision,
-    title
-  ]);
+  }, [navBall, pipCoordinates, handleCollision, title]);
 
   return (
     <div
       ref={pipRef}
       key={index}
+      className="nav-pip"
       style={{
         transform: `translate3d(${getX(index, 2)}px, ${getY(index, 2)}px, 0)`,
+        fontWeight: isHover ? 700 : "inherit",
       }}
     >
       {title}
@@ -54,7 +59,15 @@ function NavigationPip({
   );
 }
 
-function Nav({ pageRef, routes, setSelected }: { pageRef: React.Ref<HTMLElement>; routes: Array<string>; setSelected: any }) {
+function Nav({
+  pageRef,
+  routes,
+  setSelected,
+}: {
+  pageRef: React.Ref<HTMLElement>;
+  routes: Array<string>;
+  setSelected: any;
+}) {
   const [initial, setInitial] = useState({ x: 0, y: 0 });
   const [coord, setCoord] = useState({ x: 0, y: 0 });
   const [isDragOn, setIsDragOn] = useState(false);
@@ -74,7 +87,6 @@ function Nav({ pageRef, routes, setSelected }: { pageRef: React.Ref<HTMLElement>
         const currentX = event.clientX - initial.x - NAV_BALL_RADIUS;
         const currentY = event.clientY - initial.y - NAV_BALL_RADIUS;
         setCoord({ x: event.clientX, y: event.clientY });
-        // subtract half the height of the ball
         if (moveRef && "current" in moveRef) {
           moveRef.current?.style.setProperty("--x-position", `${currentX}px`);
           moveRef.current?.style.setProperty("--y-position", `${currentY}px`);
@@ -111,23 +123,28 @@ function Nav({ pageRef, routes, setSelected }: { pageRef: React.Ref<HTMLElement>
     }
   }, []);
 
-  const handleCollision = useCallback((title: string) => {
-    setSelected(title)
-  }, [setSelected]);
+  const handleCollision = useCallback(
+    (title: string) => {
+      setSelected(title);
+    },
+    [setSelected]
+  );
 
   const getNavItems = useCallback(() => {
-    return routes.map((route, index) => (<NavigationPip
-      title={route}
-      index={index}
-      navBallCoordinates={coord}
-      handleCollision={handleCollision}
-    />))
+    return routes.map((route, index) => (
+      <NavigationPip
+        title={route}
+        index={index}
+        navBallCoordinates={coord}
+        handleCollision={handleCollision}
+      />
+    ));
   }, [coord, routes, handleCollision]);
 
   return (
-    <div className="nav-outer">
-      <div className={`nav-ball${isDragOn ? " selected" : ""}`} ref={moveRef}>
-        <div></div>
+    <div className={setActive("nav", isDragOn)}>
+      <div className="nav-ball" ref={moveRef}>
+        <div className="nav-ball-inner"></div>
       </div>
       <div className="nav-inner">
         {isDragOn ? <div className="nav-options">{getNavItems()}</div> : null}

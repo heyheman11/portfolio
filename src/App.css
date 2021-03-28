@@ -1,4 +1,6 @@
 .page {
+  display: grid;
+  grid-template: auto / 1fr 6fr;
   height: 100vh;
   background: red;
   background: linear-gradient(

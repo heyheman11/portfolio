@@ -1,6 +1,5 @@
 import { Cube } from "./Cube";
 import "./About.css";
-import React from "react";
 
 /* <div className="orbit earth">
               <div className="inner-orbit">
