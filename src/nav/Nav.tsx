@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { getX, getY, isCollision, setActive } from "./utils";
 import { NAV_BALL_RADIUS } from "./constants";
-import { useBoundingRect } from "../hooks";
+import { useBoundingRect, useWindowDimensions } from "../hooks";
 import "./Nav.css";
 
 function NavigationPip({
@@ -70,19 +70,19 @@ function Nav({
 }) {
   const [initial, setInitial] = useState({ x: 0, y: 0 });
   const [coord, setCoord] = useState({ x: 0, y: 0 });
+  const [width, height] = useWindowDimensions();
   const [isDragOn, setIsDragOn] = useState(false);
   const moveRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const pageCopy = pageRef;
-    const onDragStart = (e: MouseEvent) => {
-      if (moveRef && "current" in moveRef && e.target === moveRef.current) {
+    const onDragStart = (event: MouseEvent | TouchEvent) => {
+      if (moveRef && "current" in moveRef && event.target === moveRef.current) {
         setIsDragOn(true);
         moveRef.current?.style.removeProperty("transition");
       }
     };
-    const onDrag = (event: MouseEvent) => {
-      event.preventDefault();
+    const onDragMouse = (event: MouseEvent) => {
       if (isDragOn) {
         const currentX = event.clientX - initial.x - NAV_BALL_RADIUS;
         const currentY = event.clientY - initial.y - NAV_BALL_RADIUS;
@@ -91,6 +91,19 @@ function Nav({
           moveRef.current?.style.setProperty("--x-position", `${currentX}px`);
           moveRef.current?.style.setProperty("--y-position", `${currentY}px`);
         }
+      }
+    };
+    const onDragTouch = (event: TouchEvent) => {
+      const currentX = event.touches[0].clientX - initial.x - NAV_BALL_RADIUS;
+      const currentY = event.touches[0].clientY - initial.y - NAV_BALL_RADIUS;
+      setCoord({
+        x: event.touches[0].clientX,
+        y: event.touches[0].clientY,
+      });
+
+      if (moveRef && "current" in moveRef) {
+        moveRef.current?.style.setProperty("--x-position", `${currentX}px`);
+        moveRef.current?.style.setProperty("--y-position", `${currentY}px`);
       }
     };
     const onDragEnd = () => {
@@ -105,13 +118,19 @@ function Nav({
     if (pageRef && "current" in pageRef) {
       pageRef.current?.addEventListener("mousedown", onDragStart, false);
       pageRef.current?.addEventListener("mouseup", onDragEnd, false);
-      pageRef.current?.addEventListener("mousemove", onDrag, false);
+      pageRef.current?.addEventListener("mousemove", onDragMouse, false);
+      pageRef.current?.addEventListener("touchstart", onDragStart, false);
+      pageRef.current?.addEventListener("touchmove", onDragTouch, false);
+      pageRef.current?.addEventListener("touchend", onDragEnd, false);
     }
     return () => {
       if (pageCopy && "current" in pageCopy) {
         pageCopy.current?.removeEventListener("mousedown", onDragStart, false);
         pageCopy.current?.removeEventListener("mouseup", onDragEnd, false);
-        pageCopy.current?.removeEventListener("mousemove", onDrag, false);
+        pageCopy.current?.removeEventListener("mousemove", onDragMouse, false);
+        pageCopy.current?.removeEventListener("touchstart", onDragStart, false);
+        pageCopy.current?.removeEventListener("touchmove", onDragTouch, false);
+        pageCopy.current?.removeEventListener("touchend", onDragEnd, false);
       }
     };
   }, [initial, isDragOn, pageRef]);
@@ -121,7 +140,7 @@ function Nav({
       const { x, y } = moveRef.current?.getBoundingClientRect() as DOMRect;
       setInitial({ x, y });
     }
-  }, []);
+  }, [width, height]);
 
   const handleCollision = useCallback(
     (title: string) => {
@@ -133,6 +152,7 @@ function Nav({
   const getNavItems = useCallback(() => {
     return routes.map((route, index) => (
       <NavigationPip
+        key={index}
         title={route}
         index={index}
         navBallCoordinates={coord}

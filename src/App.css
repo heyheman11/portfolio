@@ -12,3 +12,18 @@
   --rotate-y: 0deg;
   --rotate-z: 0deg;
 }
+
+@media (max-width: 800px) {
+  .page {
+    grid-template: auto / auto;
+  }
+}
+
+.mobile-nav-wrapper {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: 99;
+  background-color: rgba(56, 59, 59, 0.692);
+  display: grid;
+}

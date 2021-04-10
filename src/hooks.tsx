@@ -14,9 +14,9 @@ function useWindowDimensions() {
   }, []);
 
   useEffect(() => {
-    const captureWindow = () => {
+    const captureWindow = debounce(() => {
       setDimensions({ width: window.innerWidth, height: window.innerHeight });
-    };
+    }, 350);
     window.addEventListener("resize", captureWindow);
     return () => window.removeEventListener("resize", captureWindow);
   }, []);
