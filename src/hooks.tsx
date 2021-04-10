@@ -68,21 +68,28 @@ const useDimensions = (ref: React.Ref<HTMLElement>) => {
 const useMouse = (ref: React.Ref<HTMLElement>) => {
   const [coord, setCoord] = useState({ x: 0, y: 0 });
 
-  const mouseMoveCallback = useCallback((event) => {
+  const mouseMoveCallback = useCallback((event: MouseEvent) => {
     setCoord({ x: event.clientX, y: event.clientY });
+  }, []);
+
+  const touchMoveCallback = useCallback((event: TouchEvent) => {
+    event.preventDefault();
+    setCoord({ x: event.touches[0].clientX, y: event.touches[0].clientY });
   }, []);
 
   useEffect(() => {
     const copiedRef = ref;
     if (copiedRef && "current" in copiedRef && copiedRef.current !== null) {
       copiedRef.current.addEventListener("mousemove", mouseMoveCallback);
+      copiedRef.current.addEventListener("touchmove", touchMoveCallback);
     }
     return () => {
       if (copiedRef && "current" in copiedRef && copiedRef.current !== null) {
         copiedRef.current.removeEventListener("mousemove", mouseMoveCallback);
+        copiedRef.current.removeEventListener("touchmove", touchMoveCallback);
       }
     };
-  }, [ref, mouseMoveCallback]);
+  }, [ref, mouseMoveCallback, touchMoveCallback]);
   return coord;
 };
 

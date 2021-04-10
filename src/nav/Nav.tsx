@@ -77,6 +77,7 @@ function Nav({
   useEffect(() => {
     const pageCopy = pageRef;
     const onDragStart = (event: MouseEvent | TouchEvent) => {
+      event.preventDefault();
       if (moveRef && "current" in moveRef && event.target === moveRef.current) {
         setIsDragOn(true);
         moveRef.current?.style.removeProperty("transition");
@@ -94,16 +95,18 @@ function Nav({
       }
     };
     const onDragTouch = (event: TouchEvent) => {
-      const currentX = event.touches[0].clientX - initial.x - NAV_BALL_RADIUS;
-      const currentY = event.touches[0].clientY - initial.y - NAV_BALL_RADIUS;
-      setCoord({
-        x: event.touches[0].clientX,
-        y: event.touches[0].clientY,
-      });
-
-      if (moveRef && "current" in moveRef) {
-        moveRef.current?.style.setProperty("--x-position", `${currentX}px`);
-        moveRef.current?.style.setProperty("--y-position", `${currentY}px`);
+      event.preventDefault();
+      if (isDragOn) {
+        const currentX = event.touches[0].clientX - initial.x - NAV_BALL_RADIUS;
+        const currentY = event.touches[0].clientY - initial.y - NAV_BALL_RADIUS;
+        setCoord({
+          x: event.touches[0].clientX,
+          y: event.touches[0].clientY,
+        });
+        if (moveRef && "current" in moveRef) {
+          moveRef.current?.style.setProperty("--x-position", `${currentX}px`);
+          moveRef.current?.style.setProperty("--y-position", `${currentY}px`);
+        }
       }
     };
     const onDragEnd = () => {
