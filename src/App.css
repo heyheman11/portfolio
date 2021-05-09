@@ -1,8 +1,9 @@
 .page {
   display: grid;
-  grid-template: auto / 1fr 6fr;
-  height: 100vh;
-  background: red;
+  /* grid-template: auto / 1fr 6fr; */
+  grid-template: auto / auto;
+  height: 100%;
+  background: #536976;
   background: linear-gradient(
     to right,
     var(--bg-colour-1, #536976),
@@ -26,4 +27,8 @@
   z-index: 99;
   background-color: rgba(56, 59, 59, 0.692);
   display: grid;
+}
+
+* {
+  font-family: "Satoshi-Regular";
 }
