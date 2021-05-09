@@ -1,4 +1,10 @@
-import { useMemo, useRef, useState, useCallback, useEffect } from "react";
+import React, {
+  useMemo,
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import { Body } from "./body/Body";
 import { Nav } from "./nav/Nav";
 import routes from "./routes";
@@ -6,6 +12,10 @@ import "./App.css";
 import { useWindowDimensions } from "./hooks";
 
 const MOBILE_WIDTH_BREAKPOINT = 800;
+
+function MobileCornerButton({ children }: React.PropsWithChildren<{}>) {
+  return <div className="corner-button">{children}</div>;
+}
 
 function App() {
   const [selected, setSelected] = useState(routes[0].name);
@@ -54,7 +64,14 @@ function App() {
             routes={navRoutes}
             setSelected={setPageSelection}
           />
-          <button onClick={() => setIsMobileNavActive(false)}>X</button>
+          <MobileCornerButton>
+            <button
+              onClick={() => setIsMobileNavActive(false)}
+              onTouchStart={() => setIsMobileNavActive(false)}
+            >
+              X
+            </button>
+          </MobileCornerButton>
         </div>
       )}
       {layout === "desktop" && (

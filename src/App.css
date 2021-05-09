@@ -24,6 +24,19 @@
   height: 100vh;
   width: 100vw;
   z-index: 99;
-  background-color: rgba(56, 59, 59, 0.692);
+  background-color: rgba(56, 59, 59, 0.85);
   display: grid;
+}
+
+.corner-button {
+  position: absolute;
+  bottom: -50px;
+  right: -50px;
+  height: 200px;
+  width: 200px;
+  border-radius: 700px;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
