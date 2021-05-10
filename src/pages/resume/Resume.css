@@ -12,7 +12,7 @@ p {
   margin: 0.5em 0;
 }
 
-.content {
+.resume {
   margin: 0 auto;
   padding: 10px 15px;
   background-color: white;
@@ -20,15 +20,42 @@ p {
   -webkit-box-shadow: 0px 0px 7.5px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 7.5px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 7.5px 0px rgba(0, 0, 0, 0.75);
+  max-width: 21cm;
+}
+
+ul {
+  margin: 0;
+  /* padding: 0 0 0 1em; */
+}
+
+ul > li {
+  margin-bottom: 0.25em;
+}
+
+ul:last-child {
+  margin: 0;
+}
+
+.workplace > p {
+  margin-top: 0;
 }
 
 .header {
-  margin: 0 0 15px 0;
+  margin: 0 0 1em 0;
+}
+
+.section {
+  margin-top: 0.5em;
+}
+
+.section:first-of-type {
+  margin-top: 0;
 }
 
 .experience-node {
   display: flex;
   align-items: center;
+  margin-top: 0.5em;
 }
 
 .header-socials {
@@ -83,33 +110,64 @@ p {
   height: calc(100% / 2 - 30px);
 }
 
-.resume-body {
-  column-count: 2;
-  column-gap: 4em;
-}
-
 .heading {
   width: 100%;
-  border-bottom: 3px solid blue;
 }
 
-.heading > h2 {
-  color: blue;
+.gradient-text {
+  background-color: rgb(142, 142, 142);
+  background-image: linear-gradient(
+    to right,
+    var(--bg-colour-1, #536976),
+    var(--bg-colour-2, #292e49)
+  );
+  background-size: 100%;
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+.bottom-border {
+  height: 2px;
+  background: #536976;
+  background: linear-gradient(
+    to right,
+    var(--bg-colour-1, #536976),
+    var(--bg-colour-2, #292e49)
+  );
+}
+
+h1 {
+  margin-top: 0.75em;
+  margin-bottom: 1em;
+}
+
+.technologies {
+  display: flex;
+  justify-content: space-between;
+}
+
+.margin-heading {
+  margin-top: 0.5em;
 }
 
 @media print {
   @page {
     size: 21cm 29.7cm;
   }
-  .content {
+  .resume {
     -webkit-print-color-adjust: exact;
     height: 100%;
     width: 100%;
     position: fixed;
+    box-shadow: none;
     top: 0;
     left: 0;
-    margin: 0 auto;
-    box-shadow: none;
-    /* padding: 10px 15px; */
+  }
+
+  .header-socials {
+    margin: 10px -15px;
   }
 }

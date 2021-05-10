@@ -9,6 +9,31 @@ import { debounce } from "lodash";
  */
 function useWindowDimensions() {
   const [dimensions, setDimensions] = useState({ height: 0, width: 0 });
+  const [isResizing, setIsResizing] = useState(false);
+  useEffect(() => {
+    setDimensions({ width: window.innerWidth, height: window.innerHeight });
+  }, []);
+
+  useEffect(() => {
+    setIsResizing(true);
+    const captureWindow = () => {
+      setDimensions({ width: window.innerWidth, height: window.innerHeight });
+      setIsResizing(false);
+    };
+    window.addEventListener("resize", captureWindow);
+    return () => window.removeEventListener("resize", captureWindow);
+  }, []);
+
+  return { values: [dimensions.width, dimensions.height], isResizing };
+}
+
+/**
+ * Captures height and width of window. Debpounced version.
+ *
+ * @returns [width, height]
+ */
+function useWindowDimensionsDebounced() {
+  const [dimensions, setDimensions] = useState({ height: 0, width: 0 });
   useEffect(() => {
     setDimensions({ width: window.innerWidth, height: window.innerHeight });
   }, []);
@@ -117,4 +142,10 @@ function useBoundingRect(ref: React.Ref<HTMLElement>): PartialDOMRect {
   return coord;
 }
 
-export { useWindowDimensions, useDimensions, useMouse, useBoundingRect };
+export {
+  useWindowDimensions,
+  useDimensions,
+  useMouse,
+  useBoundingRect,
+  useWindowDimensionsDebounced,
+};

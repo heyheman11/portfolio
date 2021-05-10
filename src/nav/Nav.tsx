@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { getX, getY, isCollision, setActive } from "./utils";
 import { NAV_BALL_RADIUS } from "./constants";
-import { useBoundingRect, useWindowDimensions } from "../hooks";
+import { useBoundingRect, useWindowDimensionsDebounced } from "../hooks";
 import "./Nav.css";
 
 function NavigationPip({
@@ -48,7 +48,7 @@ function NavigationPip({
     <div
       ref={pipRef}
       key={index}
-      className="nav-pip"
+      className="nav-pip pip"
       style={{
         transform: `translate3d(${getX(index, 2)}px, ${getY(index, 2)}px, 0)`,
         fontWeight: isHover ? 700 : "inherit",
@@ -70,7 +70,7 @@ function Nav({
 }) {
   const [initial, setInitial] = useState({ x: 0, y: 0 });
   const [coord, setCoord] = useState({ x: 0, y: 0 });
-  const [width, height] = useWindowDimensions();
+  const [width, height] = useWindowDimensionsDebounced();
   const [isDragOn, setIsDragOn] = useState(false);
   const moveRef = useRef<HTMLDivElement>(null);
 

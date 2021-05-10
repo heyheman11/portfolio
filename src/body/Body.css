@@ -1,4 +1,10 @@
 .body {
   padding: 20px;
   height: 100%;
+  overflow-y: auto;
+}
+
+.open-nav {
+  position: absolute;
+  bottom: 2em;
 }

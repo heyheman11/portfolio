@@ -18,8 +18,8 @@ function MobileCornerButton({ children }: React.PropsWithChildren<{}>) {
 }
 
 function App() {
-  const [selected, setSelected] = useState(routes[0].name);
-  const [width] = useWindowDimensions();
+  const [selectedPage, setSelectedPage] = useState(routes[0].name);
+  const { values, isResizing } = useWindowDimensions();
   const pageRef = useRef(null);
   const [layout, setLayout] = useState<"desktop" | "mobile">("desktop");
   const [isMobileNavActive, setIsMobileNavActive] = useState(false);
@@ -28,20 +28,26 @@ function App() {
     return routes.map((route) => route.name);
   }, []);
 
-  const setPageSelection = useCallback((page: "About" | "Resume") => {
-    if (page === "About") {
-      document.documentElement.style.setProperty("--bg-colour-1", "#536976");
-      document.documentElement.style.setProperty("--bg-colour-2", "#292e49");
-    }
-    if (page === "Resume") {
-      document.documentElement.style.setProperty("--bg-colour-1", "#ab3827");
-      document.documentElement.style.setProperty("--bg-colour-2", "#bbcf26");
-    }
-    setSelected(page);
-  }, []);
+  const setPageSelection = useCallback(
+    (page: "About" | "Resume") => {
+      if (page === "About") {
+        document.documentElement.style.setProperty("--bg-colour-1", "#536976");
+        document.documentElement.style.setProperty("--bg-colour-2", "#292e49");
+      }
+      if (page === "Resume") {
+        document.documentElement.style.setProperty("--bg-colour-1", "#ab3827");
+        document.documentElement.style.setProperty("--bg-colour-2", "#bbcf26");
+      }
+      if (page !== selectedPage && layout === "mobile") {
+        setIsMobileNavActive(false);
+      }
+      setSelectedPage(page);
+    },
+    [selectedPage, layout]
+  );
 
   useEffect(() => {
-    if (width <= MOBILE_WIDTH_BREAKPOINT) {
+    if (values[0] <= MOBILE_WIDTH_BREAKPOINT) {
       setLayout("mobile");
     } else {
       setLayout("desktop");
@@ -49,14 +55,21 @@ function App() {
         setIsMobileNavActive(false);
       }
     }
-  }, [width, isMobileNavActive]);
+  }, [values, isMobileNavActive]);
+
+  useEffect(() => {
+    document.title = `Daniel Zambetto - ${selectedPage}`;
+  }, [selectedPage]);
 
   const handleMobileNavToggle = (toggle: boolean) => {
     setIsMobileNavActive(toggle);
   };
 
   return (
-    <div className="page" ref={pageRef}>
+    <div
+      className={`${isMobileNavActive ? "page-nav--active " : ""}page`}
+      ref={pageRef}
+    >
       {layout === "mobile" && isMobileNavActive && (
         <div className="mobile-nav-wrapper">
           <Nav
@@ -68,8 +81,9 @@ function App() {
             <button
               onClick={() => setIsMobileNavActive(false)}
               onTouchStart={() => setIsMobileNavActive(false)}
+              className="pip button"
             >
-              X
+              Close
             </button>
           </MobileCornerButton>
         </div>
@@ -83,7 +97,9 @@ function App() {
       )}
       <Body
         pageRef={pageRef}
-        PageToRender={routes.find((item) => item.name === selected)?.component}
+        PageToRender={
+          routes.find((item) => item.name === selectedPage)?.component
+        }
         layout={layout}
         handleMobileNavToggle={handleMobileNavToggle}
       />

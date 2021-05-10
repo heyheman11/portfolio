@@ -20,23 +20,57 @@
 }
 
 .mobile-nav-wrapper {
+  overflow: hidden;
   position: absolute;
   height: 100vh;
   width: 100vw;
   z-index: 99;
   background-color: rgba(56, 59, 59, 0.85);
   display: grid;
+  animation: fadeIn 0.3s normal;
 }
 
 .corner-button {
+  overflow: hidden;
   position: absolute;
-  bottom: -50px;
-  right: -50px;
+  right: 0;
+  bottom: 0;
   height: 200px;
   width: 200px;
   border-radius: 700px;
-  border: 2px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 25px 0px 60px 28px rgba(15, 137, 194, 0.6);
+  border: 4px solid gray;
+  transform: translate(50px, 50px);
+}
+
+.pip {
+  background-color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  text-align: center;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.45);
+}
+
+.button {
+  border: none;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.page-nav--active {
+  overflow: hidden;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

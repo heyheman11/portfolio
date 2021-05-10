@@ -10,7 +10,12 @@ export function Body({
     <div className="body">
       <PageToRender pageRef={pageRef} />
       {layout === "mobile" && (
-        <button onClick={() => handleMobileNavToggle(true)}>OPEN NAV</button>
+        <button
+          className="open-nav pip button"
+          onClick={() => handleMobileNavToggle(true)}
+        >
+          OPEN NAVIGATION
+        </button>
       )}
     </div>
   );
