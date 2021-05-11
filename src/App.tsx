@@ -19,6 +19,7 @@ function MobileCornerButton({ children }: React.PropsWithChildren<{}>) {
 
 function App() {
   const [selectedPage, setSelectedPage] = useState(routes[0].name);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { values, isResizing } = useWindowDimensions();
   const pageRef = useRef(null);
   const [layout, setLayout] = useState<"desktop" | "mobile">("desktop");
